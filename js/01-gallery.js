@@ -30,12 +30,7 @@ allGallery.insertAdjacentHTML('beforeend', cardsGalleryMarkUp);
 allGallery.addEventListener('click', createModal);
 
 function createModal(event) {
-event.preventDefault();
 
-    const isGalleryImage = event.target.classList.contains('gallery__image');
-    if(!isGalleryImage) {
-        return
-    }
     
     const currentImageUrl = event.target.dataset.source;
 
