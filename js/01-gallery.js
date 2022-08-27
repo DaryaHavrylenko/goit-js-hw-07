@@ -29,33 +29,31 @@ allGallery.insertAdjacentHTML('beforeend', cardsGalleryMarkUp);
 
 allGallery.addEventListener('click', createModal);
 
+
 function createModal(event) {
   event.preventDefault();
-    
-  const currentImageUrl = event.target.dataset.source;
   
-
-    const instance = basicLightbox.create(`<img class="modal__image" src="${currentImageUrl}" />`
-    
-    );
+ const currentImageUrl = event.target.dataset.source;
+  
+const instance = basicLightbox.create(`<img class="modal__image" src="${currentImageUrl}" />`);
 
     instance.show()
     
-   window.addEventListener('keydown', onKeyPress);
-   window.addEventListener('click', onKeyPress);
-
+  
+  document.addEventListener('keydown', onKeyPress);
+  
   function onKeyPress(event) {
  
     const isKeyCode = event.code === `Escape`;
     if (isKeyCode) {
+      instance.close();
      
-   instance.close()
       window.removeEventListener('keydown', onKeyPress);
       
       }
 
   }
- window.removeEventListener('click', onKeyPress);
+//  window.removeEventListener('click', onKeyPress);
 
     }
 
