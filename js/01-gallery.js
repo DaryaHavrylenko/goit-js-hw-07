@@ -9,7 +9,7 @@ function createImgGallery(galleryItems) {
     .map(({ preview, original, description }) => {
       return `
     <div class="gallery__item">
-  <a class="gallery__link" href="large-image.jpg">
+  <a class="gallery__link" href="${original}">
     <img
       class="gallery__image"
       src="${preview}"
@@ -21,7 +21,7 @@ function createImgGallery(galleryItems) {
     })
     .join('');
 }
-// createImgGallery(galleryItems);
+createImgGallery(galleryItems);
 
 const cardsGalleryMarkUp = createImgGallery(galleryItems);
 allGallery.insertAdjacentHTML('beforeend', cardsGalleryMarkUp);
@@ -30,24 +30,32 @@ allGallery.insertAdjacentHTML('beforeend', cardsGalleryMarkUp);
 allGallery.addEventListener('click', createModal);
 
 function createModal(event) {
-
+  event.preventDefault();
     
-    const currentImageUrl = event.target.dataset.source;
+  const currentImageUrl = event.target.dataset.source;
+  
 
-    const instance = basicLightbox.create(`<img class="modal__img" src="${currentImageUrl}" />`
+    const instance = basicLightbox.create(`<img class="modal__image" src="${currentImageUrl}" />`
     
     );
 
     instance.show()
     
-    document.addEventListener('keydown', onKeyPress);
+   window.addEventListener('keydown', onKeyPress);
+   window.addEventListener('click', onKeyPress);
 
-function onKeyPress(event) {
+  function onKeyPress(event) {
+ 
     const isKeyCode = event.code === `Escape`;
     if (isKeyCode) {
-        instance.close();
-        document.removeEventListener('keydown', onKeyPress);
-    }
-}
+     
+   instance.close()
+      window.removeEventListener('keydown', onKeyPress);
+      
+      }
+
+  }
+ window.removeEventListener('click', onKeyPress);
+
     }
 
