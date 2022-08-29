@@ -33,25 +33,29 @@ allGallery.addEventListener('click', createModal);
 function createModal(event) {
   event.preventDefault();
   if (!event.target.classList.contains("gallery__image")) return;
- const currentImageUrl = event.target.dataset.source;
+  const currentImageUrl = event.target.dataset.source;
   
-const instance = basicLightbox.create(`<img class="modal__image" src="${currentImageUrl}" />`);
+  const instance = basicLightbox.create(`<img class="modal__image" src="${currentImageUrl}" />`, {
+    onShow: () => {
+      window.addEventListener('keydown', onKeyPress);
+   
+    },   onClose: () => {
+          
+          window.removeEventListener('keydown', onKeyPress);
+          
+      }
+  }
+  );
 
-  instance.show(() => {
-    window.addEventListener('keydown', onKeyPress);
-    window.addEventListener('click', onKeyPress);
-  });
-    
+  instance.show();
+   
   
   function onKeyPress(event) {
  
     const isKeyCode = event.code === `Escape`;
     if (isKeyCode) {
-      instance.close(() => {
-        window.removeEventListener('keydown', onKeyPress);
-        window.removeEventListener('click', onKeyPress);
-      });
-     }
+ instance.close();
+    } 
+    }
+  
 }
-}
-
